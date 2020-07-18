@@ -1,0 +1,8 @@
+{
+  "body": "{\"itemName\":\"Pancetta\",\"picture\":\"hello.jpg\",\"quantity\":2, \"units\":\"kg\", \"alternative\":[\"pork belly\", \"bacon\"]}",
+  "requestContext": {
+    "identity": {
+      "cognitoIdentityId": "USER-SUB-1234"
+    }
+  }
+}

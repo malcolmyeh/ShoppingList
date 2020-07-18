@@ -1,0 +1,8 @@
+{
+    "body": "{\"itemName\":\"Pancetta\",\"quantity\":2, \"units\":\"kg\"}",
+    "requestContext": {
+        "identity": {
+            "cognitoIdentityId": "USER-SUB-1234"
+        }
+    }
+}

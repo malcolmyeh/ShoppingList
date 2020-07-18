@@ -1,0 +1,11 @@
+{
+    "body": "{\"itemName\":\"Pancetta\",\"picture\":\"goodbye.jpg\",\"quantity\":3, \"units\":\"tons\", \"alternative\":[\"shark fin\", \"squid\"]}",
+    "pathParameters": {
+      "id": "63ff6f40-b8d9-11ea-8943-8b39be49b7df"
+    },
+    "requestContext": {
+      "identity": {
+        "cognitoIdentityId": "USER-SUB-1234"
+      }
+    }
+  }
