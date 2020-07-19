@@ -3,7 +3,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { API, Storage } from "aws-amplify";
 import { onError } from "../libs/errorLib";
 import { useFormFields } from "../libs/hooksLib";
-import { Form, FormControl, Button, Container } from "react-bootstrap";
+import { Form, FormControl, Button, ButtonGroup } from "react-bootstrap";
 import config from '../config';
 import { s3Upload } from "../libs/awsLib";
 
@@ -35,11 +35,11 @@ export default function Items() {
                 if (picture) {
                     item.pictureUrl = await Storage.vault.get(picture);
                 }
-                fields.itemName = item.itemName;
-                fields.quantity = item.quantity;
-                fields.units = item.units;
-                fields.alternative = item.alternative;
-                fields.notes = item.notes;
+                fields.itemName = itemName;
+                fields.quantity = quantity;
+                fields.units = units;
+                fields.alternative = alternative;
+                fields.notes = notes;
                 setItem(item);
             } catch (e) {
                 onError(e);
@@ -145,24 +145,31 @@ export default function Items() {
                     isLoading={isLoading}
                     disabled={!validateForm()}
                 > Update </Button>
+                <p>* Update under construction.d</p>
             </Form> :
                 <div>
                     <h1>{fields.itemName}</h1>
-                    <p>{fields.quantity} {fields.units}</p>
-                    <p>alternative: {fields.alternative}</p>
-                    <p>{fields.notes}</p>
-                    <img src={item.pictureUrl} width={150} height={150} />
-                    <Button
-                        type="submit"
-                        onClick={() => setIsEditing(true)}
-                    > Edit
+                    <p>Amount: {fields.quantity} {fields.units}
+                        <br />Alternative: {fields.alternative}
+                        <br />{fields.notes}</p>
+
+                    <img alt={fields.itemName} src={item.pictureUrl} width={150} height={150} />
+                    <br />
+                    <ButtonGroup>
+                        <Button
+                            variant="outline-dark"
+                            type="submit"
+                            onClick={() => setIsEditing(true)}
+                        > Edit
                     </Button>
-                    <Button
-                        type="submit"
-                        onClick={handleDelete}
-                        isLoading={isDeleting}>
-                        Delete
+                        <Button
+                            variant="outline-dark"
+                            type="submit"
+                            onClick={handleDelete}
+                            isLoading={isDeleting}>
+                            Delete
                     </Button>
+                    </ButtonGroup>
                 </div>
             )}
         </div>

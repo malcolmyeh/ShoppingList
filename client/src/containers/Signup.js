@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button, Form, FormControl } from "react-bootstrap";
+import { Form, FormControl } from "react-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
 import { Auth } from "aws-amplify";
+import LoadingButton from "../components/LoadingButton"
 export default function Signup() {
     const [fields, handleFieldChange] = useFormFields({
         email: "",
@@ -73,12 +74,13 @@ export default function Signup() {
                     onChange={handleFieldChange}
                     value={fields.confirmationCode}
                 />
-                <Button
+                <LoadingButton
+                    isLoading={isLoading}
                     type="submit"
                     disabled={!validateConfirmationForm()}
                 >
                     Verify
-                </Button>
+                </LoadingButton>
             </Form>
         )
     }
@@ -107,12 +109,13 @@ export default function Signup() {
                     onChange={handleFieldChange}
                     value={fields.confirmPassword}
                 />
-                <Button
+                <LoadingButton
+                    isLoading={isLoading}
                     type="submit"
                     disabled={!validateForm()}
                 >
                     Signup
-                </Button>
+                </LoadingButton>
 
             </Form>
         )

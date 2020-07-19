@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
-import { ListGroup, ListGroupItem, Button, ButtonGroup, Modal, Row, Col, Form, FormCheck } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { ListGroup, ListGroupItem, ButtonGroup, Row, Col } from "react-bootstrap";
 import { API } from "aws-amplify";
-import config from "../config";
 
+import LoadingButton from "../components/LoadingButton"
 export default function Inventory() {
     const [items, setItems] = useState([]);
     const { isAuthenticated } = useAppContext();
@@ -61,14 +60,14 @@ export default function Inventory() {
                         </Col>
                         <Col>
                             <ButtonGroup>
-                                <Button
+                                <LoadingButton
                                     variant="outline-dark"
                                     id={item.itemId}
                                     type="submit"
                                     onClick={handleDelete}
                                     isLoading={isDeleting}>
                                     ✕
-                                </Button>
+                                </LoadingButton>
 
                             </ButtonGroup>
                         </Col>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Navbar, Nav, NavItem, Container } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import Routes from "./Routes";
 import { AppContext } from "./libs/contextLib";
 import { Auth } from "aws-amplify";
@@ -39,7 +39,6 @@ function App() {
     !isAuthenticating &&
     <Container>
       <Navbar>
-
         <Navbar.Collapse>
           <Nav>
             {isAuthenticated
@@ -47,22 +46,22 @@ function App() {
                 <Nav.Link><Link style={{ textDecoration: 'none' }} to="/">Shopping</Link></Nav.Link>
                 <Nav.Link><Link style={{ textDecoration: 'none' }} to="/inventory">Inventory</Link></Nav.Link>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-                </>
-                  : <>
-                    <Nav.Link>
-                      <Link to="/signup">Sign Up</Link>
-                    </Nav.Link>
-                    <Nav.Link>
-                      <Link to="/login">Login</Link>
-                    </Nav.Link>
-                  </>
+              </>
+              : <>
+                <Nav.Link>
+                  <Link to="/signup">Sign Up</Link>
+                </Nav.Link>
+                <Nav.Link>
+                  <Link to="/login">Login</Link>
+                </Nav.Link>
+              </>
             }
           </Nav>
-              </Navbar.Collapse>
+        </Navbar.Collapse>
       </Navbar>
-          <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
-            <Routes />
-          </AppContext.Provider>
+      <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
+        <Routes />
+      </AppContext.Provider>
     </Container>
   );
 }

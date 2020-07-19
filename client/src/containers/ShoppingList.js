@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
-import { ListGroup, ListGroupItem, Button, ButtonGroup, Modal, Row, Col, Form, FormCheck } from "react-bootstrap";
+import { ListGroup, ListGroupItem, ButtonGroup, Row, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { API } from "aws-amplify";
-import config from "../config";
-import InventoryModal from "../components/InventoryModal"
 import LoadingButton from "../components/LoadingButton"
 export default function ShoppingList() {
     const [items, setItems] = useState([]);
@@ -42,13 +40,11 @@ export default function ShoppingList() {
             onError(e);
             setIsLoading(false);
         }
-        setIsDeleting(true);
         try {
             await deleteItem(item.itemId);
             setItems(await loadItems());
         } catch (e) {
             onError(e);
-            setIsDeleting(false);
         }
     }
     function createInventoryItem(item) {
@@ -104,38 +100,37 @@ export default function ShoppingList() {
                     <Row>
                         <Col xs={6}>
                             <LinkContainer key={item.itemId} to={`/items/${item.itemId}`}>
-                                <>
-                                    <p>{item.itemName} - {item.quantity} {item.units}</p>
-                                    <p>alt: {item.alternative}</p>
-                                </>
+                                    <p>{item.itemName} - {item.quantity} {item.units} <br/>alt: {item.alternative}</p>
                             </LinkContainer>
                         </Col>
                         <Col>
                             <ButtonGroup>
-                                <Button
+                                <LoadingButton
+                                    isLoading={isLoading}
                                     variant="outline-dark"
                                     id={item.itemId + "buy"}
                                     value={JSON.stringify(item)}
                                     type="submit"
                                     onClick={handleSubmit}>
                                     buy
-                                </Button>
-                                <Button
+                                </LoadingButton>
+                                <LoadingButton
+                                    isLoading={isLoading}
                                     variant="outline-dark"
                                     id={item.itemId + "buy_alt"}
                                     value={JSON.stringify(getAlternative(item))}
                                     type="submit"
                                     onClick={handleSubmit}>
                                     alt
-                                </Button>
-                                <Button
+                                </LoadingButton>
+                                <LoadingButton
                                     variant="outline-dark"
                                     id={item.itemId}
                                     type="submit"
                                     onClick={handleDelete}
                                     isLoading={isDeleting}>
                                     ✕
-                                </Button>
+                                </LoadingButton>
 
                             </ButtonGroup>
                         </Col>
